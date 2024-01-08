@@ -5,5 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 // Pratice.Basic();
 
 //Service Collection
-Pratice.ServiceCollection();
+// Pratice.ServiceCollection();
+
+//Life cycle
+Pratice.LifeCycle();
+
+
 
