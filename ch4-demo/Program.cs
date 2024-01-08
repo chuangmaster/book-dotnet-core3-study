@@ -7,8 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 //Service Collection
 // Pratice.ServiceCollection();
 
-//Life cycle
-Pratice.LifeCycle();
+//Life cycle basic
+// Pratice.LifeCycle();
 
+//Life cycle dispose
+Pratice.LifeCycle_Dispose();
 
 

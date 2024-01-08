@@ -36,12 +36,15 @@ public class Pratice
         Debug.Assert(services.OfType<Baz>().Any());
     }
 
+    /// <summary>
+    /// Life Cycle basic
+    /// </summary>
     public static void LifeCycle()
     {
         var root = new ServiceCollection()
-                .AddTransient<IFoo, Foo>()
-                .AddScoped<IBar>(_ => new Bar())
-                .AddSingleton<IBaz, Baz>()
+                .AddTransient<IFoo, Foo>()        // 用完即丟，每次都是新的
+                .AddScoped<IBar>(_ => new Bar ())  // 使用一個 Provider 就會產生一個新的
+                .AddSingleton<IBaz, Baz>()        // 一個 Root 建立一次
                 .BuildServiceProvider();
         var provider1 = root.CreateScope().ServiceProvider;
         var provider2 = root.CreateScope().ServiceProvider;
@@ -59,5 +62,30 @@ public class Pratice
     {
         provider.GetService<T>();
         provider.GetService<T>();
+    }
+
+
+    /// <summary>
+    /// Life Cycle basic2
+    /// </summary>
+    public static void LifeCycle_Dispose()
+    {
+        using (var root = new ServiceCollection()
+                .AddTransient<IFoo, Foo>()        // 用完即丟，每次都是新的
+                .AddScoped<IBar>(_ => new Bar ())  // 使用一個 Provider 就會產生一個新的
+                .AddSingleton<IBaz, Baz>()        // 一個 Root 建立一次
+                .BuildServiceProvider())
+        {
+            using (var scope = root.CreateScope())
+            {
+                System.Console.WriteLine("In using block (scope)");
+                var provider = scope.ServiceProvider;
+                provider.GetService<IFoo>();
+                provider.GetService<IBar>();
+                provider.GetService<IBaz>();
+                System.Console.WriteLine("Child container is disposed.");
+            }
+            System.Console.WriteLine("Root container is disposed.");
+        }
     }
 }
