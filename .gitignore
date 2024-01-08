@@ -123,7 +123,8 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
+bin/
+obj/
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
@@ -131,3 +132,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+ch4-demo/obj
+ch4-demo/bin
+ch4-demo/obj
+ch4-demo/obj
